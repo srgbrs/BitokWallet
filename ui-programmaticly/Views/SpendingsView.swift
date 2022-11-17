@@ -1,4 +1,3 @@
-
 import UIKit
 import CoreData
 
@@ -52,9 +51,32 @@ class SpendingView: UIView {
 
         self.arrowBackButton.addTarget(self, action: #selector(didTapArrow(_:)), for: .touchUpInside)
         self.addTransactionButton.addTarget(self, action: #selector(didTapAddTransaction(_:)), for: .touchUpInside)
+        
+        self.arrowBackButton.addTarget(self, action: #selector(arrowBackButtonAnimator(_:)), for: .touchUpInside)
+        self.addTransactionButton.addTarget(self, action: #selector(transactionButtonAnimator(_:)), for: .touchUpInside)
 
         
       }
+    // MARK: - Animation:
+    @objc fileprivate func arrowBackButtonAnimator(_ sender: UIButton){
+         self.animateView(sender)
+        
+    }
+    
+    @objc fileprivate func transactionButtonAnimator(_ sender: UIButton) {
+         self.animateView(sender)
+    }
+    
+    fileprivate func animateView(_ viewToAnimate: UIView) {
+        UIView.animate(withDuration: 0.05, delay: 0, usingSpringWithDamping: 0.2, initialSpringVelocity: 1, options: .curveEaseIn ,animations: {
+            viewToAnimate.transform = CGAffineTransform(scaleX: 0.90, y: 0.90)
+        }, completion: { (_) in
+            UIView.animate(withDuration: 0.1, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 2,options: .curveEaseIn ,animations: {
+                viewToAnimate.transform = CGAffineTransform(scaleX: 1, y: 1)
+            })
+            
+        })
+    }
     
     func setupBindings()
     {
@@ -74,19 +96,37 @@ class SpendingView: UIView {
     
      }
     
+    
+    // TODO: move validation to ViewModel
     @objc func didTapAddTransaction(_ sender: UIButton) {
         NotificationCenter.default.post(name: Notification.Name("transactionVerification"), object: nil)
-
-        let category = TransactionCategory.allCases[viewModel.selectedCategory.value].toString()
         
-        let date = Date.init()
-        
-        UserDefaultsManager.add(value: TransactionModelUD(amount: (-1) * Int( amountTextField.text!)!, date: "" , dateString: date.toString(), transactionType: TransactionType.expense.toString(), category: category))
+        if (amountTextField.hasText) {
+            if (amountTextField.text!.isNumber) {
+                
+                let category = TransactionCategory.allCases[viewModel.selectedCategory.value].toString()
+                let date = Date.init()
+                
+                UserDefaultsManager.updateWallet(amount: -1 * Int( amountTextField.text!)!)
+ 
+                let coreDataHandler = CoreDataHandler()
+                coreDataHandler.createTransaction(amount: (-1) * Int( amountTextField.text!)!, date: "", dateString: date.toString(), type: TransactionType.expense.toString(), category: category)
+ 
 
-        NotificationCenter.default.post(name: Notification.Name("toIncomeVC"), object: nil)
+                NotificationCenter.default.post(name: Notification.Name("toIncomeVC"), object: nil)
+                
+            } else { // IF NOT NUMBER
+                addTransactionButton.shake()
+                amountTextField.text = ""
+            }
+        } else { // IF HAS NO TEXT
+            addTransactionButton.shake()
+            amountTextField.shake()
+        }
                 
      }
     
+    // MARK: - Style:
     func style(){
         self.backgroundColor = UIColor(named: "LightBlue")
         self.amountContainerView.backgroundColor = UIColor(named: "LightPastel")
@@ -158,6 +198,7 @@ class SpendingView: UIView {
         self.categoryPicker.delegate = viewModel
     }
     
+    // MARK: - Constraints:
     func setupConstraints() {
         [
             amountContainerView,

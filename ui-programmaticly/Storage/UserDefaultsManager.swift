@@ -1,38 +1,16 @@
-
 import Foundation
 
 
 class UserDefaultsManager {
-    static func set(array: [TransactionModelUD]) {
-        let encoder = JSONEncoder()
-        if let encoded = try? encoder.encode(array) {
-            let defaults = UserDefaults.standard
-            defaults.set(encoded, forKey: "TransactionsUD")
-        }
+    
+    static func updateWallet(amount: Int) {
+        var wallet = UserDefaults.standard.integer(forKey: "wallet")
+        wallet += amount
+        UserDefaults.standard.set(wallet, forKey: "wallet")
     }
     
-    static func get() -> [TransactionModelUD]? {
-        if let saved = UserDefaults.standard.object(forKey: "TransactionsUD") as? Data {
-            let decoder = JSONDecoder()
-            if let loaded = try? decoder.decode([TransactionModelUD].self, from: saved) {
-                return loaded
-            }
-        }
-        return nil
-    }
-    
-    static func add(value: TransactionModelUD) {
-        
-        if (self.get() == nil) {
-            var array : [TransactionModelUD] = []
-            array.append(value)
-            self.set(array: array)
-        } else {
-            var array = self.get()
-            array?.append(value)
-            self.set(array: array!)
-
-        }
-        
+    static func getWallet() -> (int: Int, string: String) {
+        let wallet = UserDefaults.standard.integer(forKey: "wallet")
+        return (wallet, String(wallet))
     }
 }

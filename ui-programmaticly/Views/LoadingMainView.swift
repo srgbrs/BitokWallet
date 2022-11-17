@@ -1,4 +1,3 @@
-
 import Foundation
 import UIKit
 
@@ -28,6 +27,7 @@ class LoadingMainView: UIView {
         self.addSubview(self.backgroundImg)
       }
     
+    // MARK: - Style:
     func style(){
         self.backgroundColor = .green
         
@@ -39,6 +39,7 @@ class LoadingMainView: UIView {
         self.backgroundImg.image = UIImage(named: "logo")
     }
     
+    // MARK: - Constraints:
     func setupConstraints() {
         
         [

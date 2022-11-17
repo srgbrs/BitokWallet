@@ -18,6 +18,10 @@
 		F41E713129217C53005C50CB /* IncomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41E713029217C53005C50CB /* IncomeView.swift */; };
 		F41E71342921A7AF005C50CB /* OutlastSlab.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F41E71332921A7AF005C50CB /* OutlastSlab.ttf */; };
 		F41E71362921A7C4005C50CB /* Brink - BR Cobane Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = F41E71352921A7C4005C50CB /* Brink - BR Cobane Medium.otf */; };
+		F4526F1D2925DDDF0047FCAE /* Transaction+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4526F1B2925DDDF0047FCAE /* Transaction+CoreDataClass.swift */; };
+		F4526F1E2925DDDF0047FCAE /* Transaction+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4526F1C2925DDDF0047FCAE /* Transaction+CoreDataProperties.swift */; };
+		F4526F202925E4DE0047FCAE /* CoreDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4526F1F2925E4DE0047FCAE /* CoreDataHandler.swift */; };
+		F459B5272925C3CD009AC525 /* UIView+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F459B5262925C3CD009AC525 /* UIView+Animation.swift */; };
 		F4672800291EB29900C955E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46727FF291EB29900C955E0 /* AppDelegate.swift */; };
 		F4672802291EB29900C955E0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4672801291EB29900C955E0 /* SceneDelegate.swift */; };
 		F4672804291EB29900C955E0 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4672803291EB29900C955E0 /* LoadingViewController.swift */; };
@@ -35,7 +39,6 @@
 		F4F9FE362924ECEC00E7E086 /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F9FE352924ECEC00E7E086 /* Dynamic.swift */; };
 		F4F9FE38292540E600E7E086 /* Date+toString.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F9FE37292540E600E7E086 /* Date+toString.swift */; };
 		F4F9FE3A292546D700E7E086 /* String+IsNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F9FE39292546D700E7E086 /* String+IsNumber.swift */; };
-		F4F9FE3E29254F9E00E7E086 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F9FE3D29254F9E00E7E086 /* CoreData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +53,10 @@
 		F41E713029217C53005C50CB /* IncomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeView.swift; sourceTree = "<group>"; };
 		F41E71332921A7AF005C50CB /* OutlastSlab.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = OutlastSlab.ttf; sourceTree = "<group>"; };
 		F41E71352921A7C4005C50CB /* Brink - BR Cobane Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Brink - BR Cobane Medium.otf"; sourceTree = "<group>"; };
+		F4526F1B2925DDDF0047FCAE /* Transaction+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Transaction+CoreDataClass.swift"; sourceTree = "<group>"; };
+		F4526F1C2925DDDF0047FCAE /* Transaction+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Transaction+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F4526F1F2925E4DE0047FCAE /* CoreDataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHandler.swift; sourceTree = "<group>"; };
+		F459B5262925C3CD009AC525 /* UIView+Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Animation.swift"; sourceTree = "<group>"; };
 		F46727FC291EB29900C955E0 /* ui-programmaticly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ui-programmaticly.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F46727FF291EB29900C955E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4672801291EB29900C955E0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -69,7 +76,6 @@
 		F4F9FE352924ECEC00E7E086 /* Dynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dynamic.swift; sourceTree = "<group>"; };
 		F4F9FE37292540E600E7E086 /* Date+toString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+toString.swift"; sourceTree = "<group>"; };
 		F4F9FE39292546D700E7E086 /* String+IsNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+IsNumber.swift"; sourceTree = "<group>"; };
-		F4F9FE3D29254F9E00E7E086 /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +185,7 @@
 				F4F9FE2F2923ACD000E7E086 /* UIVIewController+ChildVC.swift */,
 				F4F9FE37292540E600E7E086 /* Date+toString.swift */,
 				F4F9FE39292546D700E7E086 /* String+IsNumber.swift */,
+				F459B5262925C3CD009AC525 /* UIView+Animation.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -202,8 +209,10 @@
 		F4F9FE3F2925530100E7E086 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
-				F4F9FE3D29254F9E00E7E086 /* CoreData.swift */,
+				F4526F1B2925DDDF0047FCAE /* Transaction+CoreDataClass.swift */,
+				F4526F1C2925DDDF0047FCAE /* Transaction+CoreDataProperties.swift */,
 				F4B1C2FA292570BD00E80F6F /* UserDefaultsManager.swift */,
+				F4526F1F2925E4DE0047FCAE /* CoreDataHandler.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -283,17 +292,20 @@
 				F41E712D29217C14005C50CB /* SpendingsViewModel.swift in Sources */,
 				F41E713129217C53005C50CB /* IncomeView.swift in Sources */,
 				F4F9FE302923ACD000E7E086 /* UIVIewController+ChildVC.swift in Sources */,
+				F459B5272925C3CD009AC525 /* UIView+Animation.swift in Sources */,
+				F4526F1D2925DDDF0047FCAE /* Transaction+CoreDataClass.swift in Sources */,
 				F4672804291EB29900C955E0 /* LoadingViewController.swift in Sources */,
 				F4F9FE2A2922DCD200E7E086 /* PopUpView.swift in Sources */,
 				F4F9FE38292540E600E7E086 /* Date+toString.swift in Sources */,
+				F4526F1E2925DDDF0047FCAE /* Transaction+CoreDataProperties.swift in Sources */,
 				F41E712729217B97005C50CB /* IncomeViewController.swift in Sources */,
 				F41E712529215AE7005C50CB /* LoadingMainView.swift in Sources */,
 				F4F9FE362924ECEC00E7E086 /* Dynamic.swift in Sources */,
 				F41E712B29217C0A005C50CB /* IncomeViewModel.swift in Sources */,
+				F4526F202925E4DE0047FCAE /* CoreDataHandler.swift in Sources */,
 				F4672800291EB29900C955E0 /* AppDelegate.swift in Sources */,
 				F4CB9580291EC45F00243A83 /* RateModel.swift in Sources */,
 				F41E711F291FBB1B005C50CB /* TransactionModel.swift in Sources */,
-				F4F9FE3E29254F9E00E7E086 /* CoreData.swift in Sources */,
 				F41E712F29217C47005C50CB /* SpendingsView.swift in Sources */,
 				F4F9FE282922927100E7E086 /* TransactionsTableViewCell.swift in Sources */,
 				F4F9FE3A292546D700E7E086 /* String+IsNumber.swift in Sources */,

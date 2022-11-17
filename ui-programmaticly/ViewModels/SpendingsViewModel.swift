@@ -1,4 +1,3 @@
-
 import Foundation
 import UIKit
 
@@ -9,15 +8,11 @@ class SpendingsViewModel : NSObject {
     
     var selectedCategory = Dynamic(0)
     var textFieldText = Dynamic("")
+    var bitcoinsAmount = Dynamic(0)
     
     override init() {
         super.init()
 
-    }
-    
-    // have caegory and amount
-    func addTransactionButtonPressed() {
-        
     }
     
     func updateBtcRate() {
@@ -27,9 +22,14 @@ class SpendingsViewModel : NSObject {
             
         })
     }
+    
+    func updateBitcoinsAmount() {
+        // self.bitcoinsAmount.value = UserDefaultsManager.
+    }
 
 }
 
+// MARK: - PickerView Delegate
 extension SpendingsViewModel: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -38,16 +38,34 @@ extension SpendingsViewModel: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return TransactionCategory.allCases.count
     }
-    
-
-       func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?{
-           return TransactionCategory.allCases[row].toString()
-       }
-    
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.selectedCategory.value = pickerView.selectedRow(inComponent: 0)
 
     }
     
+       func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+           var label = UILabel()
+           if let v = view {
+               label = v as! UILabel
+           }
+           label.font = UIFont(name: "BRCobane-Medium", size: 20.0)
+           label.textColor = UIColor(named: "DarkBlue")
+
+           label.text = TransactionCategory.allCases[row].toString()
+           label.textAlignment = .center
+           return label
+       }
+       
+    
+}
+
+// MARK: - TextView Delegate
+extension SpendingsViewModel : UITextViewDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField.hasText {
+            self.textFieldText.value = textField.text!
+        }
+    }
 }

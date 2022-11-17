@@ -1,5 +1,3 @@
-
-
 import UIKit
 
 class SpendingsViewController: UIViewController {
@@ -23,9 +21,12 @@ class SpendingsViewController: UIViewController {
         print("TO INCOME VC")
         let vc = IncomeViewController()
         vc.modalPresentationStyle = .fullScreen //or .overFullScreen for transparency
-        self.present(vc, animated: false, completion: nil)
+        
 
     
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+            self.present(vc, animated: false, completion: nil)
+        }
        }
 
 }

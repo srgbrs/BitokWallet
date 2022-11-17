@@ -2,9 +2,6 @@
 import Foundation
 import CoreData
 
-class TransactionsArray  {
-    var transactions: [TransactionModel] = []
-}
 
 public class TransactionModel : NSObject {
     
@@ -31,12 +28,12 @@ public class TransactionModel : NSObject {
         self.category = category
     }
     
-    static var T = TransactionModel(amount: 2, category: TransactionCategory.restaraunts.toString(), transactionType: TransactionType.profit.toString())
+//    static var T = TransactionModel(amount: 2, c , transactionType: TransactionType.profit.toString())
     
 }
-enum TransactionType: CaseIterable {
-    case expense
-    case profit
+enum TransactionType: String, CaseIterable {
+    case expense = "expense"
+    case profit = "profit"
     
     func toString() -> String {
         let string = ""
@@ -47,13 +44,23 @@ enum TransactionType: CaseIterable {
             return "profit"
         }
     }
+    
+    static func get(from: String) -> TransactionType {
+        if from == expense.rawValue {
+            return .expense }
+        else
+        {
+            return .profit
+        }
+       
+    }
 }
 
-enum TransactionCategory: CaseIterable {
-    case restaraunts
-    case traveling
-    case uncategorized
-    case other
+enum TransactionCategory: String, CaseIterable {
+    case restaraunts = "restaraunts"
+    case traveling = "traveling"
+    case uncategorized = "uncategorized"
+    case other = "other"
     
     func toString() -> String {
         let string = ""
@@ -68,6 +75,17 @@ enum TransactionCategory: CaseIterable {
             return "uncategorized"
         }
     }
+    
+    static func get(from: String) -> TransactionCategory {
+            if from == restaraunts.rawValue {
+                return .restaraunts
+            } else if from == other.rawValue {
+                return .other
+            } else if from == traveling.rawValue {
+                return .traveling
+            }
+            return .uncategorized
+        }
 }
 
 public struct TransactionModelUD : Codable {
@@ -85,3 +103,28 @@ public struct TransactionModelUD : Codable {
         self.category = category
     }
 }
+
+//class Transaction : Codable {
+//    enum CodingKeys: String, CodingKey, Equatable {
+//            case amount
+//            case dateString
+//            case category
+//            case type
+//            case date
+//        }
+//
+//    @NSManaged var amount : Int
+//    @NSManaged var dateString : String
+//    @NSManaged var category: String
+//    @NSManaged var type: String
+//    @NSManaged var date : Date
+//
+//    init(amount: Int, dateString : String, category: String, type: String, date: Date = Date.init() ) {
+//        self.amount = amount
+//        self.dateString = date.toString()
+//        self.category = category
+//        self.type = type
+//        self.date = Date.init()
+//    }
+//
+//}

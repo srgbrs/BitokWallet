@@ -1,4 +1,3 @@
-
 import UIKit
 
 class LoadingViewController: UIViewController {
@@ -12,7 +11,5 @@ class LoadingViewController: UIViewController {
     override func loadView() {
       self.view = LoadingMainView(viewModel: LoadingViewModel())
     }
-
-
 }
 

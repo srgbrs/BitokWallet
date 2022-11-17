@@ -1,11 +1,8 @@
-
-
 import UIKit
 
 class IncomeView: UIView {
     
     private var viewModel: IncomeViewModel
-
 
     private let amountContainerView = UIView()
     private let transactionsContainerView = UIView()
@@ -33,8 +30,22 @@ class IncomeView: UIView {
         
         
        self.viewModel.updateBtcRate()
+        self.fetchTransactionsFromStorage()
         
      }
+    
+    func fetchTransactionsFromStorage(){
+        do {
+            viewModel.transactionsStorage =  try CoreDataHandler.getAlltransactions()
+            DispatchQueue.main.async {
+                // update Table view!
+                self.transactionsTableView.reloadData()
+                
+            }
+        } catch {
+            
+        }
+    }
      
      required init?(coder: NSCoder) {
        fatalError("init(coder:) has not been implemented")
@@ -54,8 +65,6 @@ class IncomeView: UIView {
             DispatchQueue.main.async {
                 self.btcAmountLabel.text = btcAmount
             }
-            //  self.btcAmountLabel.text = btcAmount
-
         })
 
     }
@@ -76,21 +85,62 @@ class IncomeView: UIView {
         
         self.addTransactionButton.addTarget(self, action: #selector(didTapAddTransaction(_:)), for: .touchUpInside)
         self.addIncomeButton.addTarget(self, action: #selector(didTapAddAmount(_:)), for: .touchUpInside)
+        
+        self.addTransactionButton.addTarget(self, action: #selector(transactionButtonAnimator(_:)), for: .touchUpInside)
+        self.addIncomeButton.addTarget(self, action: #selector(addButtonAnimator(_:)), for: .touchUpInside)
+        
+        NotificationCenter.default.addObserver(self, selector:#selector(updateTransactionsTable), name: Notification.Name("updateTransactionsTable"), object: nil)
+        
+        
       }
     
+    @objc func updateTransactionsTable() {
+        // self.transactionsTableView.reloadData()
+        
+        do {
+            viewModel.transactionsStorage =  try CoreDataHandler.getAlltransactions()
+            DispatchQueue.main.async {
+                // update Table view!
+                self.transactionsTableView.reloadData()
+                
+            }
+        } catch {
+            
+        }
+    }
+    
     @objc func didTapAddTransaction(_ sender: UIButton) {
-        print("ADD")
         NotificationCenter.default.post(name: Notification.Name("toSpendingVC"), object: nil)
         
      }
     
     @objc func didTapAddAmount(_ sender: UIButton) {
-        print("ADD child ")
           NotificationCenter.default.post(name: Notification.Name("toPopUpVC"), object: nil)
-         //viewModel.btcAmount.value = "200"
         
      }
     
+    // MARK: - Animations:
+    @objc fileprivate func addButtonAnimator(_ sender: UIButton){
+         self.animateView(sender)
+        
+    }
+    
+    @objc fileprivate func transactionButtonAnimator(_ sender: UIButton) {
+        self.animateView(sender)
+    }
+    
+    fileprivate func animateView(_ viewToAnimate: UIView) {
+        UIView.animate(withDuration: 0.05, delay: 0, usingSpringWithDamping: 0.2, initialSpringVelocity: 1, options: .curveEaseIn ,animations: {
+            viewToAnimate.transform = CGAffineTransform(scaleX: 0.90, y: 0.90)
+        }, completion: { (_) in
+            UIView.animate(withDuration: 0.1, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 2,options: .curveEaseIn ,animations: {
+                viewToAnimate.transform = CGAffineTransform(scaleX: 1, y: 1)
+            })
+            
+        })
+    }
+    
+    // MARK: - Style:
     func style(){
         self.backgroundColor = UIColor(named: "LightBlue")
         self.amountContainerView.backgroundColor = UIColor(named: "LightPastel")
@@ -160,6 +210,7 @@ class IncomeView: UIView {
         }
     }
     
+    // MARK: - Constraints:
     func setupConstraints() {
         [
             amountContainerView,
@@ -242,32 +293,4 @@ class IncomeView: UIView {
           ])
     }
     
-}
-
-class ArchiveUtil {
-
-    private static let PeopleKey = "PeopleKey"
-
-    private static func archivePeople(people : [TransactionModel]) -> NSData {
-
-        return NSKeyedArchiver.archivedData(withRootObject: people as NSArray) as NSData
-    }
-
-    static func loadPeople() -> [TransactionModel]? {
-
-        if let unarchivedObject = UserDefaults.standard.object(forKey: PeopleKey) as? Data {
-
-            return NSKeyedUnarchiver.unarchiveObject(with: unarchivedObject as Data) as? [TransactionModel]
-        }
-
-        return nil
-    }
-
-    static func savePeople(people : [TransactionModel]?) {
-
-        let archivedObject = archivePeople(people: people!)
-        UserDefaults.standard.set(archivedObject, forKey: PeopleKey)
-        UserDefaults.standard.synchronize()
-    }
-
 }

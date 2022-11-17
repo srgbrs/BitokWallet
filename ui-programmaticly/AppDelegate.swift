@@ -22,8 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        UserDefaults.standard.set(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
+
         if (UserDefaults.standard.object(forKey: "appCounter") == nil) {
-            var appCounter = 0
+            let appCounter = 0
             UserDefaults.standard.set(appCounter, forKey: "appCounter")
         } else {
             var appCounter = UserDefaults.standard.integer(forKey: "appCounter")
@@ -33,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if (UserDefaults.standard.object(forKey: "wallet") == nil) {
             var wallet = 0
-            UserDefaults.standard.set(wallet, forKey: "appCounter")
+            UserDefaults.standard.set(wallet, forKey: "wallet")
         } else {
             
         }

@@ -1,8 +1,6 @@
-
 import Foundation
 
 // For view - viewModel binding
-
 class Dynamic<T> {
     typealias Listener = (T) -> Void
     private var listener: Listener?

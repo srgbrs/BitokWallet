@@ -1,4 +1,3 @@
-
 import UIKit
 
 class PopUpViewController: UIViewController {
@@ -10,9 +9,10 @@ class PopUpViewController: UIViewController {
     }
     
     @IBAction func backToIncomeVC(_ sender: Any) {
-    
-        print("TO POP UP VC")
-        self.remove()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+            self.remove()
+        }
     
        }
     

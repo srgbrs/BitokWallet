@@ -1,4 +1,3 @@
-
 import UIKit
 
 class PopUpView: UIView {
@@ -13,19 +12,19 @@ class PopUpView: UIView {
     private let textField = UITextField()
     
     init(viewModel: IncomeViewModel) {
-       
-       super.init(frame: .zero)
-
-       self.setup()
-       self.style()
-
-       self.setupConstraints()
-     }
+        
+        super.init(frame: .zero)
+        
+        self.setup()
+        self.style()
+        
+        self.setupConstraints()
+    }
     
     required init?(coder: NSCoder) {
-      fatalError("init(coder:) has not been implemented")
+        fatalError("init(coder:) has not been implemented")
     }
-   
+    
     func setup() {
         self.addSubview(self.backgroundView)
         self.addSubview(self.outerViewContainer)
@@ -38,31 +37,43 @@ class PopUpView: UIView {
         self.backgroundView.addGestureRecognizer(gesture)
         
         self.addAmountButton.addTarget(self, action: #selector(didTapAddAmountButton(_:)), for: .touchUpInside)
-
-
+        
+        self.addAmountButton.addTarget(self, action: #selector(addButtonAnimator(_:)), for: .touchUpInside)
+        
+        
     }
     
     func verificateAmount() {
         // verification
         
-        //saving
-        
-        
-        var wallet = UserDefaults.standard.integer(forKey: "wallet")
-        wallet += Int(textField.text!)!
-        UserDefaults.standard.set(wallet, forKey: "wallet")
-        
-        let date = Date.init()
-        
-        UserDefaultsManager.add(value: TransactionModelUD(amount: Int( textField.text!)!, date: "" , dateString: date.toString(), transactionType: TransactionType.profit.toString(), category: TransactionCategory.uncategorized.toString()))
-        
-        NotificationCenter.default.post(name: Notification.Name("backToIncomeVC"), object: nil)
-    }
+        if (textField.hasText) {
+            if (textField.text!.isNumber) {
+
+                let date = Date.init()
+                
+                UserDefaultsManager.updateWallet(amount: Int(textField.text!)!)
+                
+                let coreDataHandler = CoreDataHandler()
+                coreDataHandler.createTransaction(amount: Int( textField.text!)!, date: "", dateString: date.toString(), type: TransactionType.profit.toString(), category: TransactionCategory.uncategorized.toString())
+                
+                NotificationCenter.default.post(name: Notification.Name("backToIncomeVC"), object: nil)
+
+            } else { // IF NOT NUMBER
+                addAmountButton.shake()
+                textField.text = ""
+            }
+        } else { // IF HAS NO TEXT
+            addAmountButton.shake()
+            textField.shake()
+        }
+}
     
     @objc func didTapAddAmountButton(_ sender: UIButton) {
         NotificationCenter.default.post(name: Notification.Name("didTapAddAmountButton"), object: nil)
     
         verificateAmount()
+        NotificationCenter.default.post(name: Notification.Name("updateBtcAmount"), object: nil)
+        NotificationCenter.default.post(name: Notification.Name("updateTransactionsTable"), object: nil)
         
      }
     
@@ -71,6 +82,23 @@ class PopUpView: UIView {
         NotificationCenter.default.post(name: Notification.Name("backToIncomeVC"), object: nil)
     }
     
+    @objc fileprivate func addButtonAnimator(_ sender: UIButton) {
+         self.animateView(sender)
+    }
+    
+    fileprivate func animateView(_ viewToAnimate: UIView) {
+        UIView.animate(withDuration: 0.05, delay: 0, usingSpringWithDamping: 0.2, initialSpringVelocity: 1, options: .curveEaseIn ,animations: {
+            viewToAnimate.transform = CGAffineTransform(scaleX: 0.90, y: 0.90)
+        }, completion: { (_) in
+            UIView.animate(withDuration: 0.1, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 2,options: .curveEaseIn ,animations: {
+                viewToAnimate.transform = CGAffineTransform(scaleX: 1, y: 1)
+            })
+            
+        })
+    }
+    
+    
+    // MARK: - Style:
     func style() {
         self.backgroundColor = .clear
         self.backgroundView.backgroundColor = UIColor(named: "LightGrey")
@@ -119,6 +147,7 @@ class PopUpView: UIView {
         
     }
     
+    // MARK: - Constraints:
     func setupConstraints() {
         
         [

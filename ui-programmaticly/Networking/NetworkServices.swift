@@ -1,5 +1,3 @@
-
-
 import Foundation
 
  // (Facade pattern)
@@ -11,7 +9,7 @@ class NetworkServices {
 class NetworkQuery {
     var rate : Int = 0
     init() {
-        // decodeAPI()
+       
     }
 
     public func decodeAPI(completionHandler : @escaping (_ rate: Int) -> ()){
@@ -25,7 +23,6 @@ class NetworkQuery {
             if let data = data{
                 do{
                     let tasks = try decoder.decode(RateModel.self, from: data)
-                    print(Int(tasks.bpi.USD.rate_float))
                     self.rate = Int(tasks.bpi.USD.rate_float)
                     completionHandler(Int(tasks.bpi.USD.rate_float))
                 }catch{
